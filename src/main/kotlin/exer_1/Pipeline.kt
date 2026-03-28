@@ -21,6 +21,24 @@ class Pipeline {
             println(" ${idx + 1}. $name")
         }
     }
+
+    fun compose(name1: String, name2: String, newStageName: String) {
+        val func1 = steps.indexOfFirst { it.first == name1 }
+        val func2 = steps.indexOfFirst { it.first == name2 }
+
+        val stage1 = steps[func1].second
+        val stage2 = steps[func2].second
+
+        val composedFun: (List<String>) -> List<String> = { stage2(stage1(it))}
+
+        val firstIdx = minOf(func1, func2)
+        val secondIdx = maxOf(func1, func2)
+
+        steps.removeAt(secondIdx)
+        steps.removeAt(firstIdx)
+
+        steps.add(firstIdx, Pair(newStageName, composedFun))
+    }
 }
 
 fun buildPipeline(action: Pipeline.() -> Unit): Pipeline {
@@ -30,7 +48,7 @@ fun buildPipeline(action: Pipeline.() -> Unit): Pipeline {
 }
 
 fun main() {
-    val logs = listOf (
+    val logs = listOf(
         " INFO: server started ",
         " ERROR: disk full ",
         " DEBUG: checking config ",
@@ -51,4 +69,11 @@ fun main() {
     print("\nResult:\n")
     val result = logPipeline.execute(logs)
     result.forEach { println(" $it") }
+
+    println("\n--- After composition ---")
+    logPipeline.compose("Trim", "Filter errors", "Trim & Filter Errors")
+    logPipeline.describe()
+    val resultComposed = logPipeline.execute(logs)
+    println("Result:")
+    resultComposed.forEach { println(" $it") }
 }
