@@ -13,8 +13,6 @@ This project is a collection of Kotlin programming exercises developed as part o
 
 The exercises are grouped under a single Maven project and implemented in pure Kotlin, targeting the JVM. Each exercise explores a different concept and includes a `main()` function to demonstrate its behaviour.
 
----
-
 ## 2. System Overview
 
 The project is a Kotlin/JVM application built with Apache Maven. It contains one exercise group (`exer_1`) with four independent components, each addressing a specific set of Kotlin language features:
@@ -32,8 +30,6 @@ The project is a Kotlin/JVM application built with Apache Maven. It contains one
 - **JVM target:** Java 1.8
 - **Testing framework:** JUnit Jupiter 5.10.0 (configured)
 - **IDE:** IntelliJ IDEA
-
----
 
 ## 3. Architecture and Design
 
@@ -61,8 +57,6 @@ Key design decisions:
 - **`Cache`** uses a generic class with type bounds (`K: Any, V: Any`) and a `LinkedHashMap` internally to preserve insertion order.
 - **`Pipeline`** uses a lambda receiver (`Pipeline.() -> Unit`) in its `buildPipeline` DSL builder function, enabling a clean builder syntax.
 
----
-
 ## 4. Implementation
 
 ### Exercise 1.1 - `Vec2.kt`: 2D Vector with Operator Overloading
@@ -85,8 +79,6 @@ An extension function `operator fun Double.times(v: Vec2)` is also defined to su
 
 Since `Vec2` is a `data class`, Kotlin automatically generates `component1()` and `component2()`, so destructuring (`val (x, y) = a`) works without manual implementation.
 
----
-
 ### Exercise 1.2 - `Event.kt`: Event Processing with Sealed Classes
 
 Models a system of application events using a `sealed class Event` with three subtypes:
@@ -105,8 +97,6 @@ Additional functions:
 
 The sealed class ensures that `when` expressions on `Event` are exhaustive without requiring an `else` branch.
 
----
-
 ### Exercise 1.3 - `Cache.kt`: Generic Key-Value Cache
 
 Implements a generic `Cache<K: Any, V: Any>` backed by a `LinkedHashMap`, which preserves insertion order. Supports the following operations:
@@ -121,8 +111,6 @@ Implements a generic `Cache<K: Any, V: Any>` backed by a `LinkedHashMap`, which 
 | `transform(key, action)` | Applies `action` to the value at `key` and updates it; returns `true` if found, `false` otherwise |
 | `snapshot()` | Returns a read-only copy of all current entries |
 | `filterValues(predicate)` | Returns a read-only map of entries matching the predicate |
-
----
 
 ### Exercise 1.4 - `Pipeline.kt`: Text Processing Pipeline with DSL Builder
 
@@ -139,8 +127,6 @@ A `buildPipeline { }` DSL builder function using a lambda with receiver (`Pipeli
 
 **Example pipeline used in `main()`:** Trim → Filter errors → Uppercase → Add index, applied to a list of log strings.
 
----
-
 ## 5. Testing and Validation
 
 The tets done for this part of the assigment were primarily manual, by running a main function and validating output behavior. Therefore, each exercise file includes a `main()` function that demonstrates the implemented functionality with representative sample inputs and prints results to the console. These serve as manual validation scenarios:
@@ -149,8 +135,6 @@ The tets done for this part of the assigment were primarily manual, by running a
 - **`Event.kt` main():** Processes a mixed event list, printing formatted output and computing total spending per user.
 - **`Cache.kt` main():** Demonstrates word frequency tracking and an ID registry, exercising all cache methods.
 - **`Pipeline.kt` main():** Builds and runs a log-processing pipeline, then demonstrates stage composition.
-
----
 
 ## 6. Usage Instructions
 ### Requirements
@@ -173,8 +157,6 @@ The tets done for this part of the assigment were primarily manual, by running a
 
 Version control was used throughout the development of this project to document the progression of the Kotlin exercises. The commit history begins with the initialization of the project structure and configuration, followed by incremental commits corresponding to the implementation of each exercise. The final commit includes the challenge of exercise 1.3 that was left behind.
 
----
-
 ## 13. Difficulties and Lessons Learned
 
 No significant difficulties were encountered during this stage. The main lessons learned are summarized below:
@@ -187,13 +169,9 @@ No significant difficulties were encountered during this stage. The main lessons
 
 - **Lambda receivers for DSLs:** The `buildPipeline { }` builder using a lambda with receiver (`Pipeline.() -> Unit`) was an interesting way to create a clean DSL-style API. Understanding the difference between a regular lambda and a lambda with receiver was a key learning point for this exercise.
 
----
-
 ## 14. Future Improvements
 
 The current exercise solutions provide a solid foundation in Kotlin fundamentals. Future improvements will focus on elevating the codebase to professional standards by implementing formal unit tests and exploring more advanced architectural patterns, such as making the Pipeline execution asynchronous using Kotlin Coroutines.
-
----
 
 ## 15. AI Usage Disclosure (Mandatory)
 
